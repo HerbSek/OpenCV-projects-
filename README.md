@@ -1,2 +1,2 @@
-# OpenCV-projects-
+# OpenCV-projects
 OpenCV | Numpy | Computer Vision 
