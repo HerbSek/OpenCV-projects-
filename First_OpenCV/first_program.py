@@ -130,14 +130,13 @@ import cv2
 import numpy as np
 
 daliImg = cv2.imread('sendtodali.png')
-row,col = daliImg.shape[:2]
-first_point = np.float32([[0,0],[col-1,0],[0,row-1]])
-affine_point = np.float32([ [0,int(0.5*(col-1))],[int(0.5*(col-1)),0],[0,int(0.5*(row-1))] ])
+height,width = daliImg.shape[:2]
+first_point = np.float32([[0,0],[width-1,0],[0,height-1]])
+affine_point = np.float32([ [0,0],[0.5*(width-1),0],[(0.5*(width-1)),height-1] ])
 matrix_affine = cv2.getAffineTransform(first_point, affine_point)
-affine_img = cv2.warpAffine(daliImg, matrix_affine, (col,row))
-cv2.imshow('Kite',affine_img)
+affine_img = cv2.warpAffine(daliImg, matrix_affine, (width,height))
+cv2.imshow('Output',affine_img)
 cv2.waitKey()
-
 
 
 
