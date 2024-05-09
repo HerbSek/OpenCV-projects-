@@ -76,21 +76,87 @@
 
 
 
+
+# import cv2
+# import numpy as np
+
+# img = cv2.imread('sendtodali.png')
+# row,col = img.shape[:2]
+# translation_matrix = np.float32([[1,0,70], [0,1,110]])
+# img_translation = cv2.warpAffine(img, translation_matrix, (col + 70,row + 110))
+# translation_matrix = np.float32([[1,0,-30], [0,1,-50]])
+# img_center = cv2.warpAffine(img_translation, translation_matrix, (col + 70 ,row + 110 ))
+
+# # Image rotation
+# rotation_matrix = cv2.getRotationMatrix2D((col/2,row/2), 30, 0.5 )
+
+# img_rotation = cv2.warpAffine(img_center, rotation_matrix, ((col + 70 ),(row + 110 )))
+
+# cv2.imshow('Rotated Image' , img_rotation)
+# cv2.waitKey()
+
+
+
+
 # translating the matrix 
+
+# import cv2
+# import numpy as np 
+
+
+# img = cv2.imread('sendtodali.png')
+# row, col = img.shape[:2]
+# translation_matrix = np.float32([[1,0,(0.5*col)],[0,1,-(0.5*row)]]) 
+# img_translation = cv2.warpAffine(img, translation_matrix, (col,row))
+# cv2.imshow('translation', img_translation)
+# cv2.waitKey()
+
+# Image interpolation example : skewing method
+# import cv2
+
+# img = cv2.imread('sendtodali.png')
+
+# img_skewed = cv2.resize(img, (600,450), interpolation = cv2.INTER_AREA)
+
+# cv2.imshow('Skewed Image',img_skewed)
+
+# cv2.waitKey()
+
+
+
+# Affine Transformations 
+
 import cv2
 import numpy as np
 
-img = cv2.imread('sendtodali.png')
-row,col = img.shape[:2]
-translation_matrix = np.float32([[1,0,70], [0,1,110]])
-img_translation = cv2.warpAffine(img, translation_matrix, (col + 70,row + 110))
-translation_matrix = np.float32([[1,0,-30], [0,1,-50]])
-img_center = cv2.warpAffine(img_translation, translation_matrix, (col + 70 + 30,row + 110 + 50))
-
-# Image rotation
-rotation_matrix = cv2.getRotationMatrix2D((col/2,row/2), 30, 0.5 )
-
-img_rotation = cv2.warpAffine(img_center, rotation_matrix, ((col + 70 + 30),(row + 110 + 50)))
-
-cv2.imshow('Rotated Image' , img_rotation)
+daliImg = cv2.imread('sendtodali.png')
+row,col = daliImg.shape[:2]
+first_point = np.float32([[0,0],[col-1,0],[0,row-1]])
+affine_point = np.float32([ [0,int(0.5*(col-1))],[int(0.5*(col-1)),0],[0,int(0.5*(row-1))] ])
+matrix_affine = cv2.getAffineTransform(first_point, affine_point)
+affine_img = cv2.warpAffine(daliImg, matrix_affine, (col,row))
+cv2.imshow('Kite',affine_img)
 cv2.waitKey()
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
