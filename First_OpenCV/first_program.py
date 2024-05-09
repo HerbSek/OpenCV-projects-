@@ -124,7 +124,7 @@
 
 
 
-# Affine Transformations 
+# Affine Transformation
 
 import cv2
 import numpy as np
