@@ -126,20 +126,72 @@
 
 # Affine Transformation
 
+# import cv2
+# import numpy as np
+
+# daliImg = cv2.imread('sendtodali.png')
+# height,width = daliImg.shape[:2]
+# first_point = np.float32([[0,0],[width-1,0],[0,height-1]])
+# affine_point = np.float32([ [0,0],[0.5*(width-1),0],[(0.5*(width-1)),height-1] ])
+# matrix_affine = cv2.getAffineTransform(first_point, affine_point)
+# affine_img = cv2.warpAffine(daliImg, matrix_affine, (width,height))
+# cv2.imshow('Output',affine_img)
+# cv2.waitKey()
+
+
+
+# import cv2
+# import numpy as np
+
+# img = cv2.imread('sendtodali.png')
+# height,width = img.shape[:2]
+
+# input_point = np.float32([ [0,0], [width-1,0] , [0,height-1] ])
+# output_point = np.float32([ [width-1,0] , [0,0], [width-1,height-1] ])
+
+# affine_matrix = cv2.getAffineTransform(input_point, output_point)
+
+# affine_image = cv2.warpAffine(img, affine_matrix, (width,height))
+
+# cv2.imshow('parallelogram', affine_image)
+
+# cv2.waitKey()
+
+
+
+# Projection transformation : 
+
+# import cv2 
+# import numpy as np
+
+# img = cv2.imread('sendtodali.png')
+# row,col = img.shape[:2]
+
+# input_point = np.float32([[0,0],[col-1,0],[0,row-1],[col-1,row-1]])
+# output_point = np.float32([[0,0.3*(row-1)],[col-1,0],[0,0.7*(row-1)],[(col-1),row-1]])
+
+# projection_matrix = cv2.getPerspectiveTransform(input_point,output_point)
+
+# projection_image = cv2.warpPerspective(img, projection_matrix, (col,row))
+# cv2.imshow('Prpjection', projection_image)
+# cv2.waitKey()
+
+
+
+# Exercise Projection 
 import cv2
 import numpy as np
+img = cv2.imread('sendtodali.png')
+cv2.imshow('Input', img)
 
-daliImg = cv2.imread('sendtodali.png')
-height,width = daliImg.shape[:2]
-first_point = np.float32([[0,0],[width-1,0],[0,height-1]])
-affine_point = np.float32([ [0,0],[0.5*(width-1),0],[(0.5*(width-1)),height-1] ])
-matrix_affine = cv2.getAffineTransform(first_point, affine_point)
-affine_img = cv2.warpAffine(daliImg, matrix_affine, (width,height))
-cv2.imshow('Output',affine_img)
+height, width = img.shape[:2]
+control_point = np.float32([[0,0],[width-1,0],[0,height-1],[width-1,height-1]])
+output_contol_point = np.float32([[0,0],[width-1,0.3*(height-1)],[0,height-1],[width-1,0.7*(height-1)]])
+projection_matrix = cv2.getPerspectiveTransform(control_point,output_contol_point)
+projection_img = cv2.warpPerspective(img, projection_matrix, (width,height))
+cv2.imshow('Output', projection_img)
+cv2.imwrite('./SendTele.png', projection_img)
 cv2.waitKey()
-
-
-
 
 
 
