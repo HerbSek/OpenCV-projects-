@@ -179,19 +179,79 @@
 
 
 # Exercise Projection 
+# import cv2
+# import numpy as np
+# img = cv2.imread('sendtodali.png')
+# cv2.imshow('Input', img)
+
+# height, width = img.shape[:2]
+# control_point = np.float32([[0,0],[width-1,0],[0,height-1],[width-1,height-1]])
+# output_contol_point = np.float32([[0,0],[width-1,0.3*(height-1)],[0,height-1],[width-1,0.7*(height-1)]])
+# projection_matrix = cv2.getPerspectiveTransform(control_point,output_contol_point)
+# projection_img = cv2.warpPerspective(img, projection_matrix, (width,height))
+# cv2.imshow('Output', projection_img)
+# cv2.imwrite('./SendTele.png', projection_img)
+# cv2.waitKey()
+
+
+
+
+
+# import cv2
+# import numpy as np
+
+# img = cv2.imread('sendtodali.png')
+# height,width = img.shape[0:2]
+
+# first_point = np.float32([[0,0],[width-1,0],[0,height-1],[width-1,height-1]])
+# second_point = np.float32([[0,0],[width-1,0.3*(height-1)],[0,height-1],[(width-1),0.7*(height-1)]])
+
+# matrix_homopraphy = cv2.getPerspectiveTransform(first_point,second_point)
+
+# homography_img = cv2.warpPerspective(img, matrix_homopraphy, (width,height))
+# homography_scale = cv2.resize(homography_img, (550,450), interpolation = cv2.INTER_AREA)
+
+# cv2.imshow('homograph', homography_scale)
+# cv2.waitKey()
+
+
+
+
+
+# Image Warping 
 import cv2
 import numpy as np
-img = cv2.imread('sendtodali.png')
-cv2.imshow('Input', img)
+import math
 
-height, width = img.shape[:2]
-control_point = np.float32([[0,0],[width-1,0],[0,height-1],[width-1,height-1]])
-output_contol_point = np.float32([[0,0],[width-1,0.3*(height-1)],[0,height-1],[width-1,0.7*(height-1)]])
-projection_matrix = cv2.getPerspectiveTransform(control_point,output_contol_point)
-projection_img = cv2.warpPerspective(img, projection_matrix, (width,height))
-cv2.imshow('Output', projection_img)
-cv2.imwrite('./SendTele.png', projection_img)
+img = cv2.imread('sendtodali.png')
+rows, cols = img.shape[:2]
+#####################
+# Vertical wave
+
+img_output = np.zeros(img.shape, dtype=img.dtype)
+
+
+for i in range(rows):
+    for j in range(cols):
+        offset_x = int(25.0 * math.sin(2 * 3.14 * i / 180))
+        offset_y = 0
+        if j+offset_x < rows:
+            img_output[i,j] = img[i,(j+offset_x)%cols]
+        else:
+            img_output[i,j] = 0
+
+
+scale_image = cv2.resize(img_output, (550,450), interpolation = cv2.INTER_AREA)
+
+
+
+cv2.imshow('Vertical wave', scale_image)
 cv2.waitKey()
+
+
+
+
+
 
 
 
