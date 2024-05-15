@@ -262,13 +262,18 @@ import cv2
 import numpy as np
 
 img = cv2.imread('sendtodali.png')
-height,width = img.shape[0:2]
+# height,width = img.shape[0:2]
 
-blur_matrix = np.ones((5,5), np.float32) / 25
-blur_image = cv2.filter2D(img, -1, blur_matrix)
+# blur_matrix = np.ones((5,5), np.float32) / 25   # Normalizing image 
+# blur_image = cv2.filter2D(img, -1, blur_matrix)
+
+
+blur_image = cv2.blur(img, (4,4))
 cv2.imshow('Output', blur_image)
 cv2.waitKey()
 
+
+# Edge Detection 
 
 
 
