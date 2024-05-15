@@ -1,3 +1,5 @@
+# chapter 1 (Applying geemetric transformations on images)
+
 # import cv2
 # img = cv2.imread('./sendtodali.png', cv2.IMREAD_GRAYSCALE)
 # cv2.imshow('Input image', img)
@@ -219,43 +221,39 @@
 
 
 # Image Warping 
-import cv2
-import numpy as np
-import math
+# import cv2
+# import numpy as np
+# import math
 
-img = cv2.imread('sendtodali.png')
-rows, cols = img.shape[:2]
-#####################
-# Vertical wave
+# img = cv2.imread('sendtodali.png')
+# rows, cols = img.shape[:2]
+# #####################
+# # Vertical wave
 
-img_output = np.zeros(img.shape, dtype=img.dtype)
-
-
-for i in range(rows):
-    for j in range(cols):
-        offset_x = int(25.0 * math.sin(2 * 3.14 * i / 180))
-        offset_y = 0
-        if j+offset_x < rows:
-            img_output[i,j] = img[i,(j+offset_x)%cols]
-        else:
-            img_output[i,j] = 0
+# img_output = np.zeros(img.shape, dtype=img.dtype)
 
 
-scale_image = cv2.resize(img_output, (550,450), interpolation = cv2.INTER_AREA)
+# for i in range(rows):
+#     for j in range(cols):
+#         offset_x = int(25.0 * math.sin(2 * 3.14 * i / 180))
+#         offset_y = 0
+#         if j+offset_x < rows:
+#             img_output[i,j] = img[i,(j+offset_x)%cols]
+#         else:
+#             img_output[i,j] = 0
+
+
+# scale_image = cv2.resize(img_output, (550,450), interpolation = cv2.INTER_AREA)
 
 
 
-cv2.imshow('Vertical wave', scale_image)
-cv2.waitKey()
-
-
+# cv2.imshow('Vertical wave', scale_image)
+# cv2.waitKey()
 
 
 
 
-
-
-
+# Chapter 2 (Edge detection and Image filtering)
 
 
 
