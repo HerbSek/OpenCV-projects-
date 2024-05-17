@@ -221,6 +221,7 @@
 
 
 # Image Warping 
+
 # import cv2
 # import numpy as np
 # import math
@@ -258,32 +259,96 @@
 # Kernel Matrix and Low pass filtering
 
 
-import cv2
-import numpy as np
+# import cv2
+# import numpy as np
 
-img = cv2.imread('sendtodali.png')
-# height,width = img.shape[0:2]
+# img = cv2.imread('sendtodali.png')
+# # height,width = img.shape[0:2]
 
-# blur_matrix = np.ones((5,5), np.float32) / 25   # Normalizing image 
-# blur_image = cv2.filter2D(img, -1, blur_matrix)
+# # blur_matrix = np.ones((5,5), np.float32) / 25   # Normalizing image 
+# # blur_image = cv2.filter2D(img, -1, blur_matrix)
 
 
-blur_image = cv2.blur(img, (4,4))
-cv2.imshow('Output', blur_image)
-cv2.waitKey()
+# blur_image = cv2.blur(img, (4,4))
+# cv2.imshow('Output', blur_image)
+# cv2.waitKey()
+
+
+
+# import cv2
+# import numpy as np
+
+# img = cv2.imread('sendtodali.png')
+# # height,width = img.shape[:2]
+
+# blur_matrix = np.ones((4,4),np.float32) / 16
+# blur_image = cv2.filter2D(img,-1, blur_matrix)
+# cv2.imshow('Blur4x4', blur_image)
+# cv2.waitKey()
 
 
 # Edge Detection 
 
+# Sobel filter (Horizontal edge detection)
+# import cv2
+
+
+# img = cv2.imread('shapes.png')
+# height,width = img.shape[:2] 
+# horizontal_edge_Detection = cv2.Sobel(img, cv2.CV_64F, 0, 1, ksize=3)  
+# img_scale = cv2.resize(horizontal_edge_Detection, (int(0.5*(width-1)),int(0.5*(height-1))), interpolation= cv2.INTER_AREA )
+# cv2.imshow('Detect Horizontal Edge', img_scale)
+# cv2.waitKey()
 
 
 
 
 
+# Laplacian filter (detects both edges)
+
+# import cv2
+# img = cv2.imread('bus.png')
+# # laplacian = cv2.Laplacian(img, cv2.CV_64F)
+# # cv2.imshow('Laplacian Edge detector', laplacian)
+
+# canny filter method (Better than the other two)
+
+# canny = cv2.Canny(img,10,150)
+# cv2.imshow('Canny Edge Detector',  canny )
+# cv2.waitKey()
+
+
+# Blurring and edge detection practice 
+
+# import cv2
+# import numpy as np
+
+# img = cv2.imread('bus.png')
+# # normalize_matrix = np.ones((5,5), np.float32) / 25
+# # blur_image = cv2.filter2D(img, -1, normalize_matrix)
+# # cv2.imshow('Blur image', blur_image)
+
+# # blur_image2 = cv2.blur(img, (4,4))
+# # cv2.imshow('Blur image2', blur_image2)
+
+# edge1 = cv2.Sobel(img, cv2.CV_64F, 1,0, ksize=1)
+# cv2.imshow('Horizontal Edge Detection', edge1)
 
 
 
 
+# cv2.waitKey()
 
+
+# import cv2
+
+# img = cv2.imread('shapes.png')
+# # laplacian_image = cv2.Laplacian(img, cv2.CV_64F)
+# # cv2.imshow('Laplacian' , laplacian_image)
+# # cv2.waitKey()
+
+# canny_image = cv2.Canny(img, 30,350)
+# cv2.imshow('canny Image', canny_image)
+# cv2.waitKey()
 
 
