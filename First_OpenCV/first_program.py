@@ -352,3 +352,21 @@
 # cv2.waitKey()
 
 
+
+
+# Motion Blur 
+
+import cv2
+import numpy as np
+
+
+img = cv2.imread('herbert.jpg')
+# Generating the kernel
+size = 15
+kernel_matrix_blur = np.zeros((size,size), dtype = img.dtype)
+kernel_matrix_blur[int(0.5*(size-1)), 0: ] = np.ones(size)
+kernel_matrix_blur = kernel_matrix_blur / size # Normalize matrix 
+
+output=cv2.filter2D(img, -1 , kernel_matrix_blur)
+cv2.imshow('Motion blur', output)
+cv2.waitKey()
