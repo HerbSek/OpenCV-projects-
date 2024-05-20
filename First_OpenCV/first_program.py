@@ -356,17 +356,65 @@
 
 # Motion Blur 
 
+# import cv2
+# import numpy as np
+
+
+# img = cv2.imread('herbert.jpg')
+# # Generating the kernel
+# size = 15
+# kernel_matrix_blur = np.zeros((size,size), dtype = img.dtype)
+# kernel_matrix_blur[int(0.5*(size-1)), 0: ] = np.ones(size)
+# kernel_matrix_blur = kernel_matrix_blur / size # Normalize matrix 
+
+# output=cv2.filter2D(img, -1 , kernel_matrix_blur)
+# cv2.imshow('Motion blur', output)
+# cv2.waitKey()
+
+
+# motion blur 
+
 import cv2
 import numpy as np
 
+img = cv2.imread('herbert.jpg')
+size = 13 
+height,width = img.shape[:2]
+
+# generating kernel
+
+# motion_blur_array = np.zeros((size,size))
+# motion_blur_array[int(0.5*(size-1)), 0: ] = np.ones(size)
+# motion_blur_array = motion_blur_array / size # Normalizing array
+
+# img_scale = cv2.resize(img, (int(0.5*(width-1)),int(0.5*(height-1))), interpolation=cv2.INTER_AREA)
+
+# apply_blur = cv2.filter2D(img_scale, -1, motion_blur_array)
+
+# cv2.imshow('Output', apply_blur)
+# cv2.waitKey()
+
+
+# read on , John Von Newmann inheritance and Othomatter theory /// Computer Architecture 
+
+
+#Image Enhancing 
+
+import cv2
+import numpy as np
 
 img = cv2.imread('herbert.jpg')
-# Generating the kernel
-size = 15
-kernel_matrix_blur = np.zeros((size,size), dtype = img.dtype)
-kernel_matrix_blur[int(0.5*(size-1)), 0: ] = np.ones(size)
-kernel_matrix_blur = kernel_matrix_blur / size # Normalize matrix 
+height, width = img.shape[:2]
 
-output=cv2.filter2D(img, -1 , kernel_matrix_blur)
-cv2.imshow('Motion blur', output)
+contrast_array = np.array([[-2,-2,-2], [-2,19,-2], [-2,-2,-2]])
+
+contrast_image = cv2.filter2D(img, -1, contrast_array)
+
+contrast_image_scale = cv2.resize(contrast_image, (int(0.5*(width-1)),int(0.5*(height-1))), interpolation = cv2.INTER_AREA)
+
+
+cv2.imshow('contrast', contrast_image_scale)
 cv2.waitKey()
+
+
+
