@@ -1,4 +1,4 @@
-# chapter 1 (Applying geemetric transformations on images)
+# chapter 1 (Applying geometric transformations on images)
 
 # import cv2
 # img = cv2.imread('./sendtodali.png', cv2.IMREAD_GRAYSCALE)
@@ -19,6 +19,33 @@
 
 
 
+# # Image Translation
+
+# import cv2
+# import numpy as np 
+
+# xUnits = eval(input("Enter x units to be moved :") )
+# yUnits = eval(input("Enter y units to be moved :") )
+# x1Units = eval(input("Enter x1 units to be moved :") )
+# y1Units = eval(input("Enter y1 units to be moved :") )
+# # [eg. 70,110,-30,-50]
+# img = cv2.imread('./sendtodali.png')  # Read Image 
+# num_rows, num_cols = img.shape[:2]   # Determine row and column size
+
+# translation_matrix = np.float32([[1,0,xUnits],[0,1,yUnits]])  # Using numpy to create a translation Matrix
+
+# img_translation = cv2.warpAffine(img, translation_matrix, ( num_cols + xUnits , num_rows + yUnits ))  # Apply the translation and get a full window
+
+# translation_matrix = np.float32([[1,0,(x1Units)],[0,1,(y1Units)]])
+
+# img_translation = cv2.warpAffine(img_translation, translation_matrix, (num_cols + xUnits - x1Units , num_rows + yUnits - y1Units ))
+
+# img_scale = cv2.resize(img, (660,460), interpolation = cv2.INTER_AREA)
+
+# img_translation_scale = cv2.resize(img_translation, (660,460), interpolation = cv2.INTER_AREA)
+
+# cv2.imshow('input', img_scale)
+# cv2.imshow('Translate', img_translation_scale)
 # Image Translation
 
 # import cv2
@@ -40,8 +67,14 @@
 
 # img_translation = cv2.warpAffine(img_translation, translation_matrix, (num_cols + xUnits - x1Units , num_rows + yUnits - y1Units ))
 
-# cv2.imshow('Translate', img_translation)
+# img_scale = cv2.resize(img, (660,460), interpolation = cv2.INTER_AREA)
 
+# img_translation_scale = cv2.resize(img_translation, (660,460), interpolation = cv2.INTER_AREA)
+
+# cv2.imshow('input', img_scale)
+# cv2.imshow('Translate', img_translation_scale)
+
+# cv2.waitKey()
 # cv2.waitKey()
 
 
@@ -374,13 +407,7 @@
 
 # motion blur 
 
-import cv2
-import numpy as np
-
-img = cv2.imread('herbert.jpg')
-size = 13 
-height,width = img.shape[:2]
-
+#
 # generating kernel
 
 # motion_blur_array = np.zeros((size,size))
@@ -400,21 +427,43 @@ height,width = img.shape[:2]
 
 #Image Enhancing 
 
-import cv2
-import numpy as np
+# # Program for Contrasting Images ( Sum of entries must be 1 to acheive this ) 
+# import cv2
+# import numpy as np
 
-img = cv2.imread('herbert.jpg')
-height, width = img.shape[:2]
+# img = cv2.imread('herbert.jpg')
+# height, width = img.shape[:2]
 
-contrast_array = np.array([[-2,-2,-2], [-2,19,-2], [-2,-2,-2]])
+# center_entry = eval(input('Enter the center kernel entry :'))
+# num_side = eval(input('Enter number used for kernel side entries :'))
+# dark_pattern = eval(input('Enter the constant of darkening in kernel matrix : '))
 
-contrast_image = cv2.filter2D(img, -1, contrast_array)
+# contrast_array = np.array([[(num_side),(num_side),(num_side)], [(num_side),int(center_entry),(num_side)], [(num_side),(num_side),(num_side)]]) / dark_pattern
 
-contrast_image_scale = cv2.resize(contrast_image, (int(0.5*(width-1)),int(0.5*(height-1))), interpolation = cv2.INTER_AREA)
+# contrast_image = cv2.filter2D(img, -1, contrast_array)
+
+# img_canny = cv2.Canny(contrast_image, 50, 100)
+# # img_canny = contrast_image 
+
+# contrast_image_scale = cv2.resize(img_canny, (int(0.8*(width-1)),int(0.8*(height-1))), interpolation = cv2.INTER_AREA)
 
 
-cv2.imshow('contrast', contrast_image_scale)
-cv2.waitKey()
+# cv2.imshow('contrast', contrast_image_scale)
+# cv2.imwrite('Edge Detection2.png', contrast_image_scale)
+# cv2.waitKey()
+
+
+# Embossing  ( Sum of entries must be 0 to acheive this )
+
+# import cv2
+# import numpy as np
+
+# img = cv2.imread('herbert.jpg')
+
+# kernel = np.array([[0,0,0],[-1,-1,0],[1,1,0]])
+# apply_k = cv2.filter2D(img, -1, kernel)
+# cv2.imshow('Kernel', apply_k)
+# cv2.waitKey()
 
 
 
