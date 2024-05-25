@@ -519,22 +519,97 @@
 # cv2.waitKey()
 
 
+# import cv2
+# import numpy as  np
+
+# img = cv2.imread('SinClair.jpeg', cv2.COLOR_BGR2RGBA)
+# height, width = img.shape[:2]
+
+# my_array = np.array([
+# [-1,-1,-1],
+# [-1, 9,-1],
+# [-1,-1,-1]
+
+# ])
+
+# my_array_normalize = my_array * 2
+
+# image_array = cv2.filter2D(img, -1 , my_array_normalize)
+
+# cv2.imshow('Img', image_array)
+# cv2.imshow('Img2', img)
+
+# cv2.waitKey()
 
 
 
 
 
 
+# embossing 
+
+# import cv2
+# import numpy as np
+
+# img = cv2.imread('SinClair.jpeg', cv2.COLOR_BGR2GRAY)
+
+# emboss_array = np.array([
+#     [  1,  0,  0],
+#     [ -1,  0,  1],
+#     [ -1,  -1,  2]
+# ]
+# ) 
+
+# emboss_image = cv2.filter2D(img, -1, emboss_array) 
+
+# cv2.imshow('emboss', emboss_image)
+
+# cv2.waitKey()
+
+ # erosion
+
+# import cv2
+# import numpy as np
+
+# img = cv2.imread('morph.png')
+
+# my_array = np.array([[1,1,1],[1,1,1],[1,1,1]]) 
+# my_array_erode = cv2.erode(img, my_array, iterations = 5)
+
+# cv2.imshow('img', my_array_erode)
+# cv2.waitKey()
+
+# Creating a vignette filter 
+
+import cv2
+import numpy as np 
+
+img = cv2.imread('herbert.jpg')
+height, width = img.shape[:2]
+
+kernel_x = cv2.getGaussianKernel(width, 150)
+kernel_y = cv2.getGaussianKernel(height, 150)
+
+kernel = kernel_x * kernel_y.T
+
+mask = 255 * kernel / np.linalg.norm(kernel)
+
+output = np.copy(img)
+mask = np.transpose(mask)
+
+for i in range(3):
+    output[:, :,i] = output[:, :,i] * mask
 
 
+img_scale = cv2.resize(img , (int(0.5*(width-1)), int(0.5*(height-1))), interpolation = cv2.INTER_AREA )
+output_scale = cv2.resize(output , (int(0.5*(width-1)), int(0.5*(height-1))), interpolation = cv2.INTER_AREA )
 
+cv2.imshow('Original', img_scale)
+cv2.imshow('Vignette Filter', output_scale)
 
-
-
-
-
-
-
+print('height', height)
+print('width', width)
+cv2.waitKey() 
 
 
 
