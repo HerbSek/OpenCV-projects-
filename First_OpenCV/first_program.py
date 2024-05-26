@@ -641,40 +641,43 @@
 # cv2.waitKey()
 
 
+# Vignette filter focusing // 
+# import cv2 
+# import numpy as np
+# img = cv2.imread('flower.png')
+# height, width = img.shape[:2]
+# gaussian_x = cv2.getGaussianKernel(int(1.5*(width)), 150)
+# gaussian_y = cv2.getGaussianKernel(int(1.5*(height)), 150)
+# kernel = gaussian_x * gaussian_y.T
+# mask = 255 * kernel / np.linalg.norm(kernel)
+# mask = np.transpose(mask)
+# mask = mask[0:int(1*(width)), 0:int(1*(height))]
 
-import cv2 
+
+# output = np.copy(img)
+# for i in range(3):
+#     output[:,:,i] = output[:,:,i] * mask
+# cv2.imshow('Output', output)
+# cv2.waitKey()
+
+
+
+
+
+
+ # Histogram equalization 
+
+import cv2
 import numpy as np
 img = cv2.imread('flower.png')
-height, width = img.shape[:2]
-gaussian_x = cv2.getGaussianKernel(int(1.5*(width)), 150)
-gaussian_y = cv2.getGaussianKernel(int(1.5*(height)), 150)
-kernel = gaussian_x * gaussian_y.T
-mask = 255 * kernel / np.linalg.norm(kernel)
-mask = np.transpose(mask)
-mask = mask[0:int(1*(width)), 0:int(1*(height))]
+img_yuv = cv2.cvtColor(img, cv2.COLOR_BGR2YUV)
 
+img_yuv[:,:,0] = cv2.equalizeHist(img_yuv[:,:,0])
 
-output = np.copy(img)
-for i in range(3):
-    output[:,:,i] = output[:,:,i] * mask
-cv2.imshow('Output', output)
-cv2.waitKey()
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+img_output = cv2.cvtColor(img_yuv, cv2.COLOR_YUV2BGR)
+cv2.imshow('Color input image', img)
+cv2.imshow('output', img_output)
+cv2.waitKey(0)
 
 
 
