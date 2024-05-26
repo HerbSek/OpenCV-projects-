@@ -581,53 +581,84 @@
 
 # Creating a vignette filter 
 
-import cv2
-import numpy as np 
+# import cv2
+# import numpy as np 
 
-img = cv2.imread('herbert.jpg')
+# img = cv2.imread('flower.png')
+# height, width = img.shape[:2]
+
+# kernel_x = cv2.getGaussianKernel(width, 150)
+# kernel_y = cv2.getGaussianKernel(height, 150)
+
+# kernel = kernel_x * kernel_y.T
+
+# mask = 255 * kernel / np.linalg.norm(kernel)
+
+# output = np.copy(img)
+# mask = np.transpose(mask)  
+
+# for i in range(3):
+#     output[:, :,i] = output[:, :,i] * mask
+
+
+# img_scale = cv2.resize(img , (int(0.5*(width-1)), int(0.5*(height-1))), interpolation = cv2.INTER_AREA )
+# output_scale = cv2.resize(output , (int(0.5*(width-1)), int(0.5*(height-1))), interpolation = cv2.INTER_AREA )
+
+# cv2.imshow('Original', img_scale)
+# cv2.imshow('Vignette Filter', output_scale)
+
+# print('height', height)
+# print('width', width)
+# cv2.waitKey() 
+
+
+
+# import cv2
+# import numpy as np
+
+
+# img = cv2.imread('tree.png')
+# height, width = img.shape[:2]
+
+# direction_x = cv2.getGaussianKernel(width, 90)
+# direction_y = cv2.getGaussianKernel(height, 90)
+
+# kernel = direction_x * direction_y.T
+
+# mask = 255 * kernel / np.linalg.norm(kernel) 
+
+# output = np.copy(img)
+
+# mask = np.transpose(mask)
+
+# for i in range(3):
+#     output[:,:,i] =  output[:,:,i] * mask 
+
+# scale_output = cv2.resize(output, None, fx= 4, fy= 4, interpolation= cv2.INTER_LINEAR)
+# scale_output = cv2.resize(output, None, fx= 4, fy= 4, interpolation= cv2.INTER_CUBIC)
+
+# cv2.imshow('Output', scale_output)
+# cv2.waitKey()
+
+
+
+import cv2 
+import numpy as np
+img = cv2.imread('flower.png')
 height, width = img.shape[:2]
-
-kernel_x = cv2.getGaussianKernel(width, 150)
-kernel_y = cv2.getGaussianKernel(height, 150)
-
-kernel = kernel_x * kernel_y.T
-
+gaussian_x = cv2.getGaussianKernel(int(1.5*(width)), 150)
+gaussian_y = cv2.getGaussianKernel(int(1.5*(height)), 150)
+kernel = gaussian_x * gaussian_y.T
 mask = 255 * kernel / np.linalg.norm(kernel)
+mask = np.transpose(mask)
+mask = mask[0:int(1*(width)), 0:int(1*(height))]
+
 
 output = np.copy(img)
-mask = np.transpose(mask)
-
 for i in range(3):
-    output[:, :,i] = output[:, :,i] * mask
-
-
-img_scale = cv2.resize(img , (int(0.5*(width-1)), int(0.5*(height-1))), interpolation = cv2.INTER_AREA )
-output_scale = cv2.resize(output , (int(0.5*(width-1)), int(0.5*(height-1))), interpolation = cv2.INTER_AREA )
-
-cv2.imshow('Original', img_scale)
-cv2.imshow('Vignette Filter', output_scale)
-
-print('height', height)
-print('width', width)
-cv2.waitKey() 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+    output[:,:,i] = output[:,:,i] * mask
+cv2.imshow('Output', output)
+cv2.waitKey()
 
 
 
