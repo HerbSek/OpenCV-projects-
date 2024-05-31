@@ -667,86 +667,267 @@
 
  # Histogram equalization 
 
+# import cv2
+# import numpy as np
+# img = cv2.imread('flower.png')
+# img_yuv = cv2.cvtColor(img, cv2.COLOR_BGR2YUV)
+
+# img_yuv[:,:,0] = cv2.equalizeHist(img_yuv[:,:,0])
+
+# img_output = cv2.cvtColor(img_yuv, cv2.COLOR_YUV2BGR)
+# cv2.imshow('Color input image', img)
+# cv2.imshow('output', img_output)
+# cv2.waitKey(0)
+
+# Chapter 2 complete /// 
+
+
+
+
+# Chapter 3 (Cartoonize image)
+
+# import cv2
+# import numpy as np
+
+# img = cv2.imread('flower.png')
+# height,width = img.shape[:2]
+
+
+
+# gaussian_x= cv2.getGaussianKernel(width, 150)
+# gaussian_y= cv2.getGaussianKernel(height, 150)
+
+# kernel = gaussian_x * gaussian_y.T
+
+# mask = 255 * kernel / np.linalg.norm(kernel)
+
+# output = np.copy(img)
+
+# mask = np.transpose(mask)
+
+# for i in range(3):
+#     output[:,:,i]=    output[:,:,i] * mask
+
+# cv2.imshow('output', output)
+# cv2.waitKey()
+
+
+# Accessing the webcam  
+# import cv2 
+
+# cap = cv2.VideoCapture(0)
+
+# # Check if the webcam is opened correctly
+# if not cap.isOpened():
+#     raise IOError("Cannot open webcam")
+# while True:
+#     ret, frame = cap.read()
+#     frame = cv2.resize(frame, None, fx=1, fy=1, interpolation=cv2.INTER_AREA)
+#     cv2.imshow('Input', frame)
+
+#     c = cv2.waitKey(1)
+#     if c == 27:
+#         break
+# cap.release()
+# cv2.destroyAllWindows()
+
+
+# import cv2
+# # Capture video
+# cam = cv2.VideoCapture(1)
+
+# # check if cam is not opened
+# if not cam.isOpened():
+#     raise IOError("Cannot open Cam")  
+
+# # while true, iterate through frames until esc (ord('esc') == 27 is tapped )
+# while True:
+#     ret, frame = cam.read()
+#     cv2.imshow('frame', frame )
+#     c = cv2.waitKey(1)
+#     if c == 27:
+#         break
+
+
+# # break cam to enable other programs use webcam 
+# cam.release()
+# cv2.destroyAllWindows()
+
+
+
+# import argparse
+# import cv2
+
+# def argument_parser():
+#     parser = argparse.ArgumentParser(description="Change color space of the \ input video stream using keyboard controls. The control keysare: \Grayscale - 'g', YUV - 'y', HSV - 'h'")
+#     return parser
+
+# if __name__=='__main__':
+#     args = argument_parser().parse_args()
+#     cap = cv2.VideoCapture(0)
+#     # Check if the webcam is opened correctly
+#     if not cap.isOpened():
+#         raise IOError("Cannot open webcam")
+#     cur_char = -1
+#     prev_char = -1
+#     while True:
+#     # Read the current frame from webcam
+#         ret, frame = cap.read()
+#         # Resize the captured image
+#         frame = cv2.resize(frame, None, fx=0.5, fy=0.5,
+#         interpolation=cv2.INTER_AREA)
+#         c = cv2.waitKey(1)
+#         if c == 27:
+#          break
+#         if c > -1 and c != prev_char:
+#            cur_char = c
+#         prev_char = c
+#         if cur_char == ord('g'):
+#             output = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
+#         elif cur_char == ord('y'):
+#             output = cv2.cvtColor(frame, cv2.COLOR_BGR2YUV)
+#         elif cur_char == ord('h'):
+#             output = cv2.cvtColor(frame, cv2.COLOR_BGR2HSV)
+
+#         else:
+#           output = frame
+#         cv2.imshow('Webcam', output)
+# cap.release()
+# cv2.destroyAllWindows()
+
+
+
+# import cv2 
+
+
+# cam = cv2.VideoCapture(0)
+
+# if not cam.isOpened():
+#     raise IOError('Cannot access webcam')
+
+# while True:
+#     ret, frame = cam.read()
+#     frame = cv2.flip(frame, 1)
+#     cv2.imshow('Output', frame)
+
+#     c =cv2.waitKey(1)
+#     if c == 27:
+#         break
+# cam.release()
+# cv2.destroyAllWindows()
+
+
+
+
+# import argparse
+# import cv2
+# import numpy as np
+# def argument_parser():
+#     parser = argparse.ArgumentParser(
+#         description="Change color space of the input video stream using keyboard controls. The control keys are: Grayscale - 'g', YUV - 'y', HSV - 'h'"
+#     )
+#     return parser
+
+# if __name__ == '__main__':
+#     # args = argument_parser().parse_args()
+#     cap = cv2.VideoCapture(0)
+
+#     # Check if the webcam is opened correctly
+#     if not cap.isOpened():
+#         raise IOError("Cannot open webcam")
+
+#     cur_char = -1
+#     prev_char = -1
+
+#     while True:
+#         # Read the current frame from webcam
+#         ret, frame = cap.read()
+
+#         if not ret:
+#             break
+
+#         # Resize the captured image
+#         frame = cv2.resize(frame, None, fx=0.5, fy=0.5, interpolation=cv2.INTER_AREA)
+#         frame  = cv2.flip(frame,1)
+#         # Capture keyboard input
+#         c = cv2.waitKey(1)
+#         if c == 27:  # ESC key
+#             break
+#         if c > -1 and c != prev_char:
+#             cur_char = c
+#             prev_char = c
+
+#         # Change color space based on keyboard input
+#         if cur_char == ord('g'):
+#             output = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
+#         elif cur_char == ord('y'):
+#             output = cv2.cvtColor(frame, cv2.COLOR_BGR2YUV)
+#         elif cur_char == ord('h'):
+#             output = cv2.cvtColor(frame, cv2.COLOR_BGR2HSV)
+#         elif cur_char == ord('a'):
+#             output = cv2.cvtColor(frame, 0)
+#         elif cur_char == ord(' '):
+#             my_matrix = np.array([[-1,-1,-1,-1,-1],[-1,2,2,2,-1],[-1,2,12,2,-1],[-1,2,2,2,-1], [-1,-1,-1,-1,-1]]) / 11
+#             frame = cv2.filter2D(frame, -1, my_matrix)
+#             # output = cv2.cvtColor(frame, cv2.COLOR_BGR2YUV)
+#             # frame[:,:,0] = cv2.equalizeHist(frame[:,:,0]) 
+#             output = cv2.cvtColor(frame, 0)
+#         elif cur_char == ord('l'):
+#             output = cv2.blur(frame, (6,6))
+#         else:
+#             output = frame 
+
+#         # Display the processed frame
+#         cv2.imshow('Output', output)
+
+#     # Release resources
+#     cap.release()
+#     cv2.destroyAllWindows()
+
+
+# Video Edge detection effect using canny  
+
 import cv2
 import numpy as np
-img = cv2.imread('flower.png')
-img_yuv = cv2.cvtColor(img, cv2.COLOR_BGR2YUV)
 
-img_yuv[:,:,0] = cv2.equalizeHist(img_yuv[:,:,0])
-
-img_output = cv2.cvtColor(img_yuv, cv2.COLOR_YUV2BGR)
-cv2.imshow('Color input image', img)
-cv2.imshow('output', img_output)
-cv2.waitKey(0)
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+cam = cv2.VideoCapture(0)
+
+if not cam.isOpened():
+    raise IOError('cam not opened')
+
+current_key = -1
+previous_key = -1
+
+while True:
+    ret, frame  =  cam.read()
+    frame = cv2.flip(frame, 1)
+    # frame_array = np.array([[-1,-1,-1,-1,-1],[-1,2,2,2,-1],[-1,2,25,2,-1],[-1,2,2,2,-1], [-1,-1,-1,-1,-1]]) / 24
+    # frame_pic = cv2.filter2D(frame, -1, frame_array)
+    # frame = frame_pic
+
+    key = cv2.waitKey(1)
+    if key == 27:
+        break
+
+    elif key > -1:
+        current_key = key
+    
+    output = frame
+
+    if current_key == ord('a'):
+        # array = cv2.Sobel(frame, cv2.CV_64F, 0,1, ksize=3)
+        array = cv2.Canny(frame, 25,150)
+        output = array
+        # output = cv2.filter2D(frame, -1 , array)
+   
+   
+    cv2.imshow('Input', frame)
+    cv2.imshow('Output', output)
+
+cam.release()
+cv2.destroyAllWindows()
+       
+ 
 
 
 
