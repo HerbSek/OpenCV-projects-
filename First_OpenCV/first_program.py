@@ -887,48 +887,72 @@
 
 # Video Edge detection effect using canny  
 
+# import cv2
+# import numpy as np
+
+# cam = cv2.VideoCapture(0)
+
+# if not cam.isOpened():
+#     raise IOError('cam not opened')
+
+# current_key = -1
+# previous_key = -1
+
+# while True:
+#     ret, frame  =  cam.read()
+#     frame = cv2.flip(frame, 1)
+#     # frame_array = np.array([[-1,-1,-1,-1,-1],[-1,2,2,2,-1],[-1,2,25,2,-1],[-1,2,2,2,-1], [-1,-1,-1,-1,-1]]) / 24
+#     # frame_pic = cv2.filter2D(frame, -1, frame_array)
+#     # frame = frame_pic
+
+#     key = cv2.waitKey(1)
+#     if key == 27:
+#         break
+
+#     elif key > -1:
+#         current_key = key
+    
+#     output = frame
+
+#     if current_key == ord('a'):
+#         # array = cv2.Sobel(frame, cv2.CV_64F, 1,0, ksize=5)
+#         array = cv2.Canny(frame, 50,250)
+#         # array = cv2.Laplacian(frame, cv2.CV_32F)
+#         output = array
+#         # output = cv2.filter2D(frame, -1 , array)
+   
+   
+#     cv2.imshow('Input', frame)
+#     cv2.imshow('Output', output)
+    
+
+# cam.release()
+# cv2.destroyAllWindows()
+       
+ 
 import cv2
-import numpy as np
 
 cam = cv2.VideoCapture(0)
-
 if not cam.isOpened():
-    raise IOError('cam not opened')
-
+    raise IOError('Camera can not be opened')
 current_key = -1
-previous_key = -1
-
 while True:
-    ret, frame  =  cam.read()
+    ret, frame = cam.read()
     frame = cv2.flip(frame, 1)
-    # frame_array = np.array([[-1,-1,-1,-1,-1],[-1,2,2,2,-1],[-1,2,25,2,-1],[-1,2,2,2,-1], [-1,-1,-1,-1,-1]]) / 24
-    # frame_pic = cv2.filter2D(frame, -1, frame_array)
-    # frame = frame_pic
-
-    key = cv2.waitKey(1)
-    if key == 27:
+    c = cv2.waitKey(1)
+    if c == 27:
         break
-
-    elif key > -1:
-        current_key = key
-    
     output = frame
-
+    if c != -1:
+        current_key = c
     if current_key == ord('a'):
-        # array = cv2.Sobel(frame, cv2.CV_64F, 0,1, ksize=3)
-        array = cv2.Canny(frame, 25,150)
-        output = array
-        # output = cv2.filter2D(frame, -1 , array)
-   
-   
-    cv2.imshow('Input', frame)
-    cv2.imshow('Output', output)
+        output = cv2.blur(frame, (7,7))
+    cv2.imshow('output', output)
 
 cam.release()
 cv2.destroyAllWindows()
-       
- 
 
+    
 
 
 
